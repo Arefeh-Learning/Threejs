@@ -1,4 +1,20 @@
 # Create a basic scene
+### Scene
+- Like a container
+- We put objects, models, lights, etc. in it
+- At some point we ask Three.js to render that scene
+```javascript
+const scene = new THREE.Scene()
+```
+### Objects and Mesh
+Objects can be many things such as primitive geometries, imported models, particles, lights and etc. . Here we start with a simple red cube.
+We need to create a Mesh, combination of a **geometry** (the shape) and a **material** (how it looks). We start with a ***BoxGeometry*** and a ***MeshBasicMaterial***. After we create a mesh we should add it to the scene.
+### Camera
+- Not visible
+- Serve as point of view when doing a render
+- Can have multiple and switch between them
+- Different types
+    - We are going to use ***PerspectiveCamera***
 ```javascript
 PerspectiveCamera(fov: Number, aspect: Number, near: Number, far: Number)
 ```
@@ -23,9 +39,18 @@ Nothing visible! because the camera is inside the cube, so we need move the came
 - `position`
     - This property is also an object with `x`, `y` and `z` properties. Three.js considers the forward/backward axis to be `z`.
     Move the camera backward before doing the render:
+    
     ```javascript
     camera.position.z = 3
     ```
+    <p align="center">
+        <img src="https://github.com/arefehkompani/learning-threejs/blob/main/Images/01-addPositionZ.png" width="500" height="300">
+    </p>
+    
+    - Add axis *x*
+    <p align="center">
+        <img src="https://github.com/arefehkompani/learning-threejs/blob/main/Images/01-addPositionX.png" width="500" height="300">
+    </p>
 - `rotating`
 - `scale`
 
