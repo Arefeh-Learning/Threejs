@@ -35,3 +35,16 @@ npm run build
 - Making a syntax mistake will usually result in an error visible on the web page
 - Some mistakes might break the auto-reload and you need to do it manually
 - You can put "static files" in the `static/` folder
+
+### Transform objects
+There are 4 properties to transform objects:
+- position
+- scale
+- rotation
+- quaternion
+
+All classes that inherit from the <a href="https://threejs.org/docs/#api/en/core/Object3D" target="_blank">ObjectD</a> posses these properties, like ***PerspectiveCamera*** or ***Mesh***. These properties will be compiled in matrices but we don't need to understand matrices.
+With `position` which has 3 properties: x, y and z. The direction of each axis is arbitrary. In Three.js, we consider:
+- `x` axis is going to the right
+- `y` axis is going upward
+- `z` axis is going backward
