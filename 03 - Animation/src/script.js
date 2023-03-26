@@ -1,6 +1,9 @@
 import './style.css'
 import * as THREE from 'three'
 import gsap from 'gsap'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
+const canvas = document.querySelector('.webgl')
 
 // Scene
 const scene = new THREE.Scene()
@@ -48,8 +51,11 @@ camera.position.z = 2
 camera.lookAt(mesh.position)
 scene.add(camera)
 
+// Controls
+const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
+
 // Renderer
-const canvas = document.querySelector('.webgl')
 const renderer = new THREE.WebGLRenderer({
     canvas
 })
@@ -67,9 +73,13 @@ const tick = () => {
     const elapsedTime = clock.getElapsedTime()
     
     // Update camera
-    camera.position.x = Math.sin(cursor.x * 10) * 3
-    camera.position.z = Math.cos(cursor.x * 10) * 3
-    camera.lookAt(new THREE.Vector3()) // or mesh.position
+    // camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3
+    // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3
+    // camera.position.y = cursor.y * 5
+    // camera.lookAt(new THREE.Vector3()) // or mesh.position
+
+    // Update controls when using damping
+    controls.update()
 
     // Update objects
     // mesh.rotation.y = elapsedTime
