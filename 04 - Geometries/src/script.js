@@ -22,14 +22,25 @@ window.addEventListener('mousemove', (event) => {
 
 Object
 const geometry = new THREE.BufferGeometry();
-const positionsArray = new Float32Array([
-    0, 0, 0,
-    0, 1, 0,
-    0, 0, 1
-])
+/* Multiple triangles */
+const count  = 300
+const positionArray = new Float32Array(count * 3 *3)
 
-const positionAttribute = new THREE.BufferAttribute(positionsArray, 3)
-geometry.setAttribute('position', positionAttribute)
+for (let i = 0; i < count * 3 * 3; i++) {
+    positionArray[i] = (Math.random() - 0.5) * 4
+}
+
+const positionsAttribute = new THREE.BufferAttribute(positionArray, 3)
+geometry.setAttribute('position', positionsAttribute)
+/* One triangle */
+// const positionsArray = new Float32Array([
+//     0, 0, 0,
+//     0, 1, 0,
+//     0, 0, 1
+// ])
+
+// const positionAttribute = new THREE.BufferAttribute(positionsArray, 3)
+// geometry.setAttribute('position', positionAttribute)
 
 const material = new THREE.MeshBasicMaterial( 
     { 
