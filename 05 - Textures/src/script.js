@@ -2,7 +2,24 @@ import './style.css'
 import * as THREE from 'three'
 import gsap from 'gsap'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import * as dat from 'dat.gui'
 
+/**
+ * Debug
+*/
+const gui = new dat.GUI({ closed: true })
+
+const parameters = {
+    color: 0xfff000,
+    spin: () => {
+        gsap.to(mesh.rotation, {duration: 1, y: mesh.rotation.y + 10})
+    }
+}
+
+/**
+ * Base
+*/
+//  Canvas
 const canvas = document.querySelector('.webgl')
 
 // Scene
@@ -20,36 +37,34 @@ window.addEventListener('mousemove', (event) => {
     cursor.y = -(event.clientY / sizes.height - 0.5)
 })
 
-Object
-const geometry = new THREE.BufferGeometry();
-/* Multiple triangles */
-const count  = 200
-const positionArray = new Float32Array(count * 3 *3)
-
-for (let i = 0; i < count * 3 * 3; i++) {
-    positionArray[i] = (Math.random() - 0.5) * 4
-}
-
-const positionsAttribute = new THREE.BufferAttribute(positionArray, 3)
-geometry.setAttribute('position', positionsAttribute)
-/* One triangle */
-// const positionsArray = new Float32Array([
-//     0, 0, 0,
-//     0, 1, 0,
-//     0, 0, 1
-// ])
-
-// const positionAttribute = new THREE.BufferAttribute(positionsArray, 3)
-// geometry.setAttribute('position', positionAttribute)
-
-const material = new THREE.MeshBasicMaterial( 
-    { 
-        color: 0xff0000 ,
-        wireframe: true,
-    }
-)
+// Object
+const geometry = new THREE.BoxBufferGeometry(1, 1, 1)
+const material = new THREE.MeshBasicMaterial( {color: parameters.color} )
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
+
+// Debug
+gui
+    .add(mesh.position, 'y')
+    .min(-3)
+    .max(3)
+    .step(0.01)
+    .name('elevation')
+
+gui 
+    .add(mesh, 'visible')
+
+gui
+    .add(mesh.material, 'wireframe')
+
+gui
+    .addColor(parameters, 'color')
+    .onChange(() => {
+        material.color.set(parameters.color)
+    })
+
+gui
+    .add(parameters, 'spin')
 
 // Sizes
 const sizes = {
